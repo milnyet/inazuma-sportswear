@@ -1,5 +1,6 @@
 https://emilio-junino-inazumasportswear.pbp.cs.ui.ac.id/
 
+Tugas 2
 Pertanyaan pertama:
 1. Membuat direktori baru secara lokal dengan nama inazuma-sportswear agar bisa dipakai untuk project django dan repo github
 2. Setelah membuat direktori lokal, saya membuat repo kosong pada github dengan nama inazuma-sportswear yang nanti akan dihubungkan dengan folder local
@@ -54,3 +55,45 @@ Menurut saya django dipilih karena berbagai alasan:
 Feedback asdos:
 1. Penjelasan pada website harap lebih detail
 2. Berikan contoh bagaimana tugasnya seharusnya terlihat agar bisa lebih mudah untuk mahasiswa mengetahui apakah sudah sesuai atau belum
+
+
+Tugas 3
+Pertanyaan pertama:
+Data delivery diperlukan untuk memenuhi keperluan platform untuk menunjuk dan mengirim data yang diperlukan sehingga bagian-bagian dari suatu sistem dapat berkomunikasi
+
+Pertanyaan kedua:
+Menurut saya yang lebih baik antara XML dan JSON adalah JSON. Alasan mengapa saya memilih JSON sama seperti mengapa JSON lebih populer dibanding XML yaitu:
+1. Bahasa/Sintaks yang lebih mudah dipahami
+2. Merupakan tipe data javascript
+
+Pertanyaan ketiga:
+Fungsi is_valid pada form berfungsi untuk mengecek kesesuaiaan/memvalidasi data yang dikirim oleh form tersebut sehingga dibutuhkan untuk mengamankan database agar tidak dimasuki data-data tidak sesuai.
+
+Pertanyaan keempat:
+csrf_token diperlukan pada form untuk mencegah serangan siber dengan memberikan token unik ke sebuah url. Tanpa csrf_token maka tidak memiliki cara untuk memvalidasikan sumber sebuah request sehingga bisa digunakkan oleh penyerang untuk menjalankan CSRF atau Cross-Site Request Forgery.
+
+Pertanyaan kelima:
+1. membuat folder template pada direktori utama dan mengisinya dengan kerangka untuk halaman web lain bernama base.html dan juga menambahkannya ke settings.py
+2. membuat file forms.py pada direktori main yang bisa menerima data produk
+3. menambahkan & memperbarui fungsi dan import pada views.py agar bisa menerima context produk dan membuat serta menampilkan produk
+4. menambahkan fungsi-fungsi yang sebelumnya dibuat ke urls.py pada direktori main agar bisa digunnakan saat routing
+5. mengubah main.html pada direktori main agar bisa menampilkan produk serta menyertakan tombol "add produk"
+6. membuat dua file html baru yang akan digunakan untuk menampilkan detail produk serta membuat produk menggunakan form bernama "create_protduct.html" dan "product_detail.html"
+7. menambahkan "CSRF_TRUSTED_ORIGINS" pada settings.py karena digunakan pada "create_protduct.html" untuk memvalidasi data yang dikirim
+8. menambahkan import HttpResponse dan Serializer pada views.py agar bisa menampilkan dalam bentuk xml dan json
+9. membuat fungsi untuk menunjukan dalam bentuk json dan xml pada views.py yang mengambil semua objek produk lalu menggunakan serializer untuk menampilkannya ke bentuk yang diinginkan
+10. membuat fungsi yang mirip dengan sebelumnya tetapi menambahkan filter berdasarkan id agar bisa menampilkan data yang sesuai dengan id dan juga menampilkan error jika tidak ada id yang dicari
+10. import keempat fungsi tersebut ke urls.py pada direktori main dan menambahkan path url ke urlpatterns
+11. menjalankan website secara local dan memastikan berhasil secara normal, xml, json, serta berdasarkan id
+12. menggunakan postman untuk melihat xml, json, dan berdasarkan id serta mengambil screenshot
+13. menjawab readme.md
+14. push ke git dan pws
+
+Feedback:
+1. Sama seperti pada Tugas 2, contoh hasil akhir agar bisa mengetahui kesesuaiaan website
+
+screenshot postman:
+![alt text](<Screenshot 2025-09-15 202625.png>)
+![alt text](<Screenshot 2025-09-15 202653.png>)
+![alt text](<Screenshot 2025-09-15 202745.png>)
+![alt text](<Screenshot 2025-09-15 202808.png>)
