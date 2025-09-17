@@ -3,8 +3,8 @@
 <p><a href="{% url 'main:show_main' %}"><button>← Back to Product List</button></a></p>
 
 <h1>{{ product.name }}</h1>
-<p><b>{{ product.get_category_display }}</b>{% if product.is_featured %} | 
-    <b>Featured</b>{% endif %}</p>
+<p><b>Kategori: </b>{{ product.get_category_display }}{% if product.is_featured %} | 
+    <b>Featured</b>{% endif %} | Harga: <b>Rp {{ product.price }}</b></p>
 
 {% if product.thumbnail %}
 <img src="{{ product.thumbnail }}" alt="Product thumbnail" width="300">
@@ -12,5 +12,11 @@
 {% endif %}
 
 <p>{{ product.description }}</p>
+
+{% if product.user %}
+    <p>Penjual: {{ product.user.username }}</p>
+{% else %}
+    <p>Penjual: Anonymous</p>
+{% endif %}
 
 {% endblock content %}

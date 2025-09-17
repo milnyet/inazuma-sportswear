@@ -10,8 +10,18 @@
 <a href="{% url 'main:create_product' %}">
   <button>+ Add Product</button>
 </a>
-
+<a href="{% url 'main:logout' %}">
+  <button>Logout</button>
+</a>
+<h4>Sesi terakhir login: {{ last_login }}</h4>
+<h4>Sedang log in sebagai: {{ user.username }}</h4>
 <hr>
+<a href="?filter=all">
+    <button type="button">All Products</button>
+</a>
+<a href="?filter=my">
+    <button type="button">My Products</button>
+</a> 
 
 {% if not product_list %}
 <p>inazuma sportswear belum menjual produk.</p>
@@ -21,8 +31,8 @@
 <div>
   <h2><a href="{% url 'main:show_product' product.id %}">{{ product.name }}</a></h2>
 
-  <p><b>{{ product.get_category_display }}</b>{% if product.is_featured %} | 
-    <b>Featured</b>{% endif %}</p>
+  <p><b>Kategori: </b>{{ product.get_category_display }}{% if product.is_featured %} | 
+    <b>Featured</b>{% endif %} | Harga: <b>Rp {{ product.price }}</b></p>
 
   {% if product.thumbnail %}
   <img src="{{ product.thumbnail }}" alt="thumbnail" width="150" height="100">
