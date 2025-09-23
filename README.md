@@ -160,4 +160,4 @@ Pertanyaan kelima:
 16. commit ke pws
 17. test deployment
 18. kerjakan readme.md
-19. commit ke semua lagi
+19. commit ke github dan pws lagi
