@@ -97,3 +97,67 @@ screenshot postman:
 ![alt text](<Screenshot 2025-09-15 202653.png>)
 ![alt text](<Screenshot 2025-09-15 202745.png>)
 ![alt text](<Screenshot 2025-09-15 202808.png>)
+
+Tugas 4
+Pertanyaan pertama:
+AuthenticationForm adalah form yang berasal dari django dan digunakan untuk proses login user. Login dilakukan dengan menyediakan field untuk username & password lalu mengautentikasikannya melalui authenticate().
+
+Kelebihan:
+1. Terintegrasi dengan sistem django
+2. Terdapat validasi yang otomatis
+
+Kekurangan:
+1. Hanya terbatas pada username dan password
+2. Perlu diubah-ubah untuk menambahkan hal-hal seperti autentikasi email
+
+Pertanyaan kedua:
+Autentikasi adalah proses di mana identitas seorang user dipastikan
+Otorisasi adalah proses menentukan hal-hal yang boleh diakses seorang user
+
+Django mengimplementasikan autentikasi dengan memberikan hal-hal seperti Authentication Form yang sebelumnya telah dibahas.
+Django mengimplementasikan otorisasi dengan memberikan hal-hal seperti @login_required yang membuat agar sebuah fungsi/halaman tidak bisa diakses oleh user yang belum login
+
+Pertanyaan ketiga:
+Kelebihan session:
+1. Memiliki dukungan untuk berbagai backend
+2. Dapat menyimpan banyak data
+3. Lebih aman dibanding cookies karena menyimpan data penting pada server
+
+Kekurangan session:
+1. Sangat berat terhadap server
+2. Jika ada hal tidak terduga terjadi terhadap server (crash) maka user dapat terlogout secara paksa
+
+Kelebihan cookies:
+1. Cepat diakses
+2. Bisa digunakan untuk menyimpan prefrensi user terhadap hal seperti size font, tema, dll
+3. Tidak memerlukan server tambahan
+
+Kekurangan cookies:
+1. Ada limit ukuran
+2. Bisa diakses oleh user (hapus/otak-atik)
+3. Dapat disalahgunakan
+
+Pertanyaan keempat:
+Secara default cookies tidak aman dan membawa resiko terjadinya hal-hal seperti CSRF, pencurian cookies, dll
+Django menangani resiko tersebut dengan menerapkan hal seperti csrf_token dan HttpOnly.
+
+Pertanyaan kelima:
+1. mengimport dan mengimplementasikan usercreation dan authentication form serrta authenticate, login, dan logout pada views.py lalu membuat fungsi untuk registrasi, login, dan logout.
+2. Membuat html untuk registrasi user dan juga html untuk login serta menambahkan tombol logout pada main.html
+3. Menmabhakan fungsi register, login, dan logout ke urls.py agar bisa diakses
+4. Mengimport login_required lalu menerapkannya pada fungsi show_main dan show_product agar tidak bisa diakses jike belum login
+5. Melakukan registrasi untuk dua akun dan menambahkan 3 produk per akun setelah login di lokal
+6. Menghubungkan product dan user dengan menambahkan user ke model lalu membuat migrasi sehingga semua produk akan memiliki sebuah user terikatdengannya dan setelah itu menambahkan tombol filtering pada main.html agar bisa menampilkan hanya produk yang dibuat sebuah user dengan mengecek selain "all"
+7. mengimport datetime, HttpResponseRedirect, dan reverse lalu menerapkannya pada login_user agar bisa menampilkan kapan terakhir login dengan menyimpan pada cookie
+8. menambahkan last_login ke context agar bisa digunakan pada main.html
+9. menambahkan response.delete_cookie('last_login') pada logout_user agar menghilangkan cookie setelah logout
+10. menambahkan pada main.html sesi terkhir login user dengan last_login
+11. setelah last login diterapkan, menambahkan user yang sedang login pada main.html menggunakan user.username
+12. test secara local
+13. push ke git
+14. commit ke git
+15. push ke pws
+16. commit ke pws
+17. test deployment
+18. kerjakan readme.md
+19. commit ke semua lagi
