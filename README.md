@@ -161,3 +161,39 @@ Pertanyaan kelima:
 17. test deployment
 18. kerjakan readme.md
 19. commit ke github dan pws lagi
+
+Tugas 5
+Pertanyaan pertama:
+Prioritas:
+1. CSS yang ditulis langsung di atribut style pada tag HTML (Inline Styles) 
+2. Prioritas dihitung berdasarkan jumlah dan jenis selector dengan urutan ID Selectors, Class, Attribute, dan Pseudo-Class Selectors
+3. Terakhir Element dan Pseudo-Element Selectors.
+
+Pertanyaan kedua:
+Pada tahun zaman modern kita ini mayoritas akses internet saat ini menggunakan handphone, oleh karena itu responsive design sangat penting untuk memastikan pengguna memiliki pengalaman yang optimal. Hal tersebut dicapaikan dengan menyesuaikan layout dan elemen visual secara automated berdasarkan ukuran layar devicenya sehingga menghilangkan kebutuhan user untuk zoom atau scroll horizontal. Contoh aplikasi yang sudah responsif adalah Tokopedia, aplikasi Tokopedia menampilkan navigasi secara ringkas dan kontennya tersusun dalam satu kolom saat diakses melalui smartphone, hal tersebut agar mudah dibaca dan dioperasikan oleh pengguna. Di sisi lainnya, aplikasi yang belum responsif adalah hal-hal seperti situs web yang kuno (mempunyai lebar tetap) akan menampilkan versi desktop yang diperkecil pada handphone sehingga memaksa pengguna untuk memperbesar dan scroll ke samping dan hal tersebut membuat aplikasi sulit digunakan.
+
+
+Pertanyaan ketiga:
+1. Padding adalah ruang di dalam kotak, berfungsi sebagai jarak antara konten dan border.
+2. Border adalah bagian paling luar kotak yang melingkari/menyelimuti konten dan padding.
+2. Margin adalah ruang di luar kotak, berfungsi sebagai jarak antar elemen.
+
+Jadi perbedaanya dapat dilihat dari lokasi mereka relatif ke elemen kotak
+
+Pertanyaan keempat:
+1. Flexbox adalah sistem layout satu dimensi yang berarti sistem berfokus mengatur elemen hanya pada satu sumbu. Kegunaannya adalah untuk menata elemen-elemen dalam satu komponen.
+2. Grid Layout adalah sistem dua dimensi yang berarti sistem dapat mendefinisikan dan mengatur elemen dalam baris dan kolom secara bersamaan. Kegunaannya adalah untuk membuat struktur tata letak halaman yang kompleks
+
+Pertanyaan kelima:
+1. Menambahkan tailwind ke proyek melalui base.html pada bagian head
+2. Menambahkan fungsi hapus dan edit produk pada views.py dan juga membuat berkas html untuk kedua fungsi lalu melakukan routing pada urls.py agar akhirnya bisa digunakan pada main.html
+3. Mulai melakukan kustomisasi halaman website dengan pertama menambahkan navbar kepada halaman utama dengan cara membuat navbar.html pada folder root template lalu mengincludenya pada main.html
+4. Menambahkan konfigurasi file static pada settings.py dengan menambahkan hal di bagian middleware lalu konfigurasi bagian static_url, root, dan staticfiles_dirs
+5. Membuat file global.css pada folder css di dalam folder static lalu mengubungkannya dan script tailwind ke base.html dengan menambahkannya pada base.html
+6. Mengisikan file global.css dengan styling untuk form, dll
+7. Melakukan styling untuk navbar, login, register, detail, dan create news dengan mengubah html mereka
+8. Membuat file card_product.html agar bisa menampilkan produk di halaman utama secara unik dengan desain yang beda dari tutorial
+9. Menambahkan file no-product.png pada folder images di folder static agar bisa ditampilkan ketika tidak ada produk
+10. Menambahkan kedua file yang baru dibuat ke main.html agar bisa dilihat di halaman web
+11. Kerjain readme.md
+12. Push ke git dan pws.
