@@ -32,7 +32,7 @@ Pertanyaan pertama:
 
 Pertanyaan kedua:
 ![alt text](image.png)
-Source(https://www.biznetgio.com/news/django)
+Source(https://www.biznetgio.com/product/django)
 
 Bagan tersebut menunjukkan alur dari request sebuah client ke web, pertama sebuah client melakukan request yang selanjutnya akan diterima oleh URL yang setelah diterima akan diarahkan ke views yang sesuai dengannya. Views akan menggunakan model untuk memilih template sesuai agar bisa menampilkan halaman web yang sesuai dengan request client. 
 
@@ -191,9 +191,35 @@ Pertanyaan kelima:
 4. Menambahkan konfigurasi file static pada settings.py dengan menambahkan hal di bagian middleware lalu konfigurasi bagian static_url, root, dan staticfiles_dirs
 5. Membuat file global.css pada folder css di dalam folder static lalu mengubungkannya dan script tailwind ke base.html dengan menambahkannya pada base.html
 6. Mengisikan file global.css dengan styling untuk form, dll
-7. Melakukan styling untuk navbar, login, register, detail, dan create news dengan mengubah html mereka
+7. Melakukan styling untuk navbar, login, register, detail, dan create product dengan mengubah html mereka
 8. Membuat file card_product.html agar bisa menampilkan produk di halaman utama secara unik dengan desain yang beda dari tutorial
 9. Menambahkan file no-product.png pada folder images di folder static agar bisa ditampilkan ketika tidak ada produk
 10. Menambahkan kedua file yang baru dibuat ke main.html agar bisa dilihat di halaman web
 11. Kerjain readme.md
 12. Push ke git dan pws.
+
+Tugas 6:
+Pertanyaan pertama:
+Synchronus request adalah request yang dijalankan secara berurutan dengan browser menunggu respons sebelum lanjut
+Asynchronus request adalah request yang dijalankan secara bersamaan sehingga browser tetap bisa jalan/interaktif selama menunggu respons
+
+Pertanyaan kedua:
+1. Sebuah event terjadi pada (misal: klik tombol) browser
+2. Browser membuat dan mengirim httpRequest ke view django
+3. Request diprocess oleh django lalu dibuar respons berupa data yang sesuai dengan request lalu dikirim ke browser
+4. Data yang diterima lalu diprocess oleh javascript terus browser memperbarui isi halaman
+
+Pertanyaan ketiga:
+1. Tidak perlu reload seluruh halaman
+2. Lebih interaktif karena user masih bisa melakukan hal ketika request diprocess
+3. Memungkin fitur yang langsung/realtime
+
+Pertanyaan keempat:
+1. Menggunakan csrf token pada request post
+2. Sanitasi input seperti dengan strip_tags
+3. Membatasi jumlah percobaan
+
+Pertanyaan kelima:
+1. Lebih cepat dan responsif
+2. Memberikan interaksi secara langsung/realtime
+3. Menyimpan posisi ataupun input data sehingga user tidak terganggu

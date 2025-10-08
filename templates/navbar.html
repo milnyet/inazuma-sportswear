@@ -24,9 +24,9 @@
               <div class="text-sm font-medium text-gray-900">{{ name|default:user.username }}</div>
               <div class="text-xs text-gray-900">{{ npm|default:"Student" }} - {{ class|default:"Class" }}</div>
             </div>
-            <a href="{% url 'main:logout' %}" class="text-red-600 hover:text-red-700 font-medium transition-colors">
+            <button id="logoutBtn" class="text-red-600 hover:text-red-700 font-medium transition-colors">
               Logout
-            </a>
+            </button>
           {% else %}
             <a href="{% url 'main:login' %}" class="text-gray-900 hover:text-gray-900 font-medium transition-colors">
               Login
@@ -70,9 +70,9 @@
               <div class="font-medium text-gray-900">{{ name|default:user.username }}</div>
               <div class="text-sm text-gray-900">{{ npm|default:"Student" }} - {{ class|default:"Class" }}</div>
             </div>
-            <a href="{% url 'main:logout' %}" class="block text-red-600 hover:text-red-700 font-medium py-3 transition-colors">
+            <button id="logoutBtnMobile" class="block text-red-600 hover:text-red-700 font-medium py-3 transition-colors w-full text-left">
               Logout
-            </a>
+            </button>
           {% else %}
             <div class="space-y-3">
               <a href="{% url 'main:login' %}" class="block text-gray-600 hover:text-gray-900 font-medium py-3 transition-colors">
@@ -89,9 +89,49 @@
     <script>
       const btn = document.querySelector("button.mobile-menu-button");
       const menu = document.querySelector(".mobile-menu");
-    
       btn.addEventListener("click", () => {
         menu.classList.toggle("hidden");
       });
+
+      // Fungsi ambil CSRF token
+      function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
+
+      async function handleLogout() {
+        const response = await fetch("{% url 'main:logout' %}", {
+          method: "POST",
+          headers: {
+            "X-Requested-With": "XMLHttpRequest",
+            "X-CSRFToken": getCookie("csrftoken"),
+          },
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          showToast("Logout berhasil!", "", "success");
+          setTimeout(() => window.location.href = result.redirect_url, 750);
+        } else {
+          showToast("Gagal logout!", "", "error");
+        }
+      }
+
+      // Tambahkan event listener untuk kedua tombol
+      const logoutBtn = document.getElementById("logoutBtn");
+      const logoutBtnMobile = document.getElementById("logoutBtnMobile");
+      if (logoutBtn) logoutBtn.addEventListener("click", handleLogout);
+      if (logoutBtnMobile) logoutBtnMobile.addEventListener("click", handleLogout);
     </script>
   </nav>

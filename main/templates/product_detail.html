@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block meta %}
-<title>{{ product.name }} - Inazuma Sportswear</title>
+<title>Product Detail - Inazuma Sportswear</title>
 {% endblock meta %}
 
 {% block content %}
@@ -16,44 +16,51 @@
             </a>
         </div>
         
-        <!-- Article -->
-        <article class="bg-yellow-400 rounded-lg border border-yellow-600 overflow-hidden">
+        <!-- Loading State -->
+        <div id="loading-state" class="bg-yellow-400 rounded-lg border border-yellow-600 p-12 text-center">
+            <svg class="animate-spin h-8 w-8 text-blue-600 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+            </svg>
+            <p class="text-gray-900 mt-3">Loading product detail...</p>
+        </div>
+
+        <!-- Error State -->
+        <div id="error-state" class="bg-yellow-400 rounded-lg border border-yellow-600 p-12 text-center hidden">
+            <div class="w-16 h-16 mx-auto mb-4">
+                <div class="text-red-500 text-5xl">⚠️</div>
+            </div>
+            <h3 class="text-lg font-medium text-gray-900 mb-2">Failed to load product</h3>
+            <p class="text-gray-500">Please try again later.</p>
+        </div>
+        
+        <!-- Article Content -->
+        <article id="product-description" class="bg-yellow-400 rounded-lg border border-yellow-600 overflow-hidden hidden">
             
             <!-- Header -->
             <div class="p-6 sm:p-8">
-                <div class="flex flex-wrap items-center gap-2 mb-4">
-                    <span class="inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-blue-600 text-white">
-                        {{ product.get_category_display }}
-                    </span>
-                    {% if product.is_featured %}
-                        <span class="inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-blue-100 text-blue-800">
-                            Featured
-                        </span>
-                    {% endif %}
+                <div id="badges-container" class="flex flex-wrap items-center gap-2 mb-4">
+                    <!-- Dynamic badges will be inserted here -->
                 </div>
-                
-                <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 leading-tight mb-4">
-                    {{ product.name }}
+                <h1 id="product-name" class="text-3xl sm:text-4xl font-bold text-gray-900 leading-tight mb-4">
+                    <!-- Name will be inserted here -->
                 </h1>
-                <h1 class="text-2xl sm:text-2xl font-bold text-gray-900 leading-tight mb-4">
-                    Rp.{{ product.price }}
-                </h1>
+                <p id="product-price" class="text-xl sm:text-2xl font-bold text-gray-900 mt-2"></p>
             </div>
 
             <!-- Featured Image -->
-            {% if product.thumbnail %}
-                <div class="px-6 sm:px-8">
-                    <img src="{{ product.thumbnail }}" 
-                         alt="{{ product.name }}" 
-                         class="w-full h-64 sm:h-80 lg:h-96 object-cover rounded-lg">
-                </div>
-            {% endif %}
+            <div id="featured-image-container" class="px-6 sm:px-8 hidden">
+                <img id="featured-image" 
+                     src="" 
+                     alt="" 
+                     class="w-full h-64 sm:h-80 lg:h-96 object-cover rounded-lg">
+            </div>
 
             <!-- Content -->
             <div class="p-6 sm:p-8">
                 <div class="prose prose-lg max-w-none">
-                    <div class="text-black-700 leading-relaxed whitespace-pre-line text-base sm:text-lg">
-                        {{ product.description }}
+                    <div id="product-description-text" class="text-gray-900 leading-relaxed whitespace-pre-line text-base sm:text-lg">
+                        <!-- description will be inserted here -->
                     </div>
                 </div>
             </div>
@@ -63,11 +70,7 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <div class="font-medium text-gray-900">
-                            {% if product.user %}
-                                <p>Penjual: {{ product.user.username }}</p>
-                            {% else %}
-                                <p>Penjual: Anonymous</p>
-                            {% endif %}
+                            <p id="product-seller">Penjual: Loading...</p>
                         </div>
                     </div>
                 </div>
@@ -75,4 +78,110 @@
         </article>
     </div>
 </div>
+<script>
+// Configuration
+const PRODUCT_ID = "{{ product.id }}";
+const PRODUCT_DETAIL_ENDPOINT = `{% url 'main:show_json_by_id' '00000000-0000-0000-0000-000000000000' %}`.replace('00000000-0000-0000-0000-000000000000', PRODUCT_ID);
+
+// DOM Elements
+const loadingState = document.getElementById('loading-state');
+const errorState = document.getElementById('error-state');
+const productDescription = document.getElementById('product-description');
+const badgesContainer = document.getElementById('badges-container');
+const productName = document.getElementById('product-name');
+const featuredImageContainer = document.getElementById('featured-image-container');
+const featuredImage = document.getElementById('featured-image');
+const productDescriptionText = document.getElementById('product-description-text');
+const productSeller = document.getElementById('product-seller');
+const productPrice = document.getElementById('product-price');
+
+// Show/hide page sections
+function showState(state) {
+    loadingState.classList.toggle('hidden', state !== 'loading');
+    errorState.classList.toggle('hidden', state !== 'error');
+    productDescription.classList.toggle('hidden', state !== 'ready');
+}
+
+// Get readable category name
+function getCategoryLabel(categoryCode) {
+    const categoryMapping = {
+    jersey: 'Jersey',
+    sepatu: 'Sepatu',
+    lainlain: 'Lain-lain',
+    celana: 'Celana',
+  };
+    return categoryMapping[categoryCode] || categoryCode;
+}
+
+// Render article content
+function renderArticle(product) {
+    // Set title
+    productName.textContent = product.name;
+    document.title = `${product.name} - Inazuma Sportswear`;
+    // Set product price
+    if (product.price !== undefined && product.price !== null) {
+        productPrice.textContent = `Rp ${Number(product.price).toLocaleString('id-ID')}`;
+    } else {
+        productPrice.textContent = 'Rp.0';
+    }
+    
+    // Set badges
+    badgesContainer.innerHTML = '';
+    
+    // Category badge
+    const categoryBadge = document.createElement('span');
+    categoryBadge.className = 'inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-blue-600 text-white';
+    categoryBadge.textContent = getCategoryLabel(product.category);
+    badgesContainer.appendChild(categoryBadge);
+    
+    // Featured badge
+    if (product.is_featured) {
+        const featuredBadge = document.createElement('span');
+        featuredBadge.className = 'inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-blue-200 text-blue-600';
+        featuredBadge.textContent = 'Featured';
+        badgesContainer.appendChild(featuredBadge);
+    }
+    
+    // Set featured image
+    if (product.thumbnail) {
+        featuredImage.src = product.thumbnail;
+        featuredImage.alt = product.name;
+        featuredImageContainer.classList.remove('hidden');
+    } else {
+        featuredImageContainer.classList.add('hidden');
+    }
+    
+    // Set content
+    productDescriptionText.textContent = product.description;
+    
+    // Set author
+    const authorName = product.user_username || 'Anonymous';
+    productSeller.textContent = `Penjual: ${authorName}`;
+}
+
+// Fetch product detail
+async function loadProductDetail() {
+    try {
+        showState('loading');
+        
+        const response = await fetch(PRODUCT_DETAIL_ENDPOINT, {
+            headers: { 'Accept': 'application/json' },
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch product detail');
+        }
+
+        const productData = await response.json();
+        renderArticle(productData);
+        showState('ready');
+    } catch (error) {
+        console.error('Error loading product detail:', error);
+        showState('error');
+    }
+}
+
+// Initialize page
+loadProductDetail();
+</script>
 {% endblock content %}
